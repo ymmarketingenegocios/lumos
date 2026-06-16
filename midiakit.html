@@ -34,12 +34,21 @@ html,body{margin:0;padding:0;background:#1a1a1a;font-family:'Inter',sans-serif}
 
 /* ── SCREEN VIEW ── */
 @media screen{
-  body{padding:40px 0;display:flex;flex-direction:column;align-items:center;gap:32px}
+  body{padding:40px 0;display:flex;flex-direction:column;align-items:center;gap:24px;background:#111}
+  .slide-wrapper{
+    width:960px;
+    height:540px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 20px 80px rgba(0,0,0,.6);
+    border-radius:2px;
+    flex-shrink:0;
+  }
   .slide{
-    transform-origin:top center;
+    transform-origin:top left;
     transform:scale(0.5);
-    margin:-270px 0;
-    box-shadow:0 20px 80px rgba(0,0,0,.5);
+    position:absolute;
+    top:0;left:0;
   }
 }
 
@@ -1328,5 +1337,20 @@ h1,h2,h3,h4,h5{font-family:'Montserrat',sans-serif;line-height:1.05}
   </div>
 </div>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Só aplicar no modo screen (não no print)
+  if (window.matchMedia('print').matches) return;
+  
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach(function(slide) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'slide-wrapper';
+    slide.parentNode.insertBefore(wrapper, slide);
+    wrapper.appendChild(slide);
+  });
+});
+</script>
 </body>
 </html>
